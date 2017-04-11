@@ -1,0 +1,62 @@
+{\rtf1\ansi\ansicpg936\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset134 PingFangSC-Regular;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red217\green11\blue0;\red0\green0\blue0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 \'cb\'b5\'c3\'f7\'a3\'ba\'d6\'a7\'b3\'d6
+\f1 iOS7+
+\f0 \'a3\'ac\'d6\'a7\'b3\'d6\'ba\'e1\'c6\'c1\'a3\'ac\'d6\'a7\'b3\'d6\'ca\'d6\'ca\'c6\'bf\'ec\'bd\'f8\'bf\'ec\'cd\'cb\'a3\'ac\'d6\'a7\'b3\'d6\'d7\'f3\'b2\'e0\'ca\'d6\'ca\'c6\'b5\'f7\'bd\'da\'c1\'c1\'b6\'c8\'a3\'ac\'d3\'d2\'b2\'e0\'ca\'d6\'ca\'c6\'b5\'f7\'bd\'da\'d2\'f4\'c1\'bf\'a1\'a3
+\f1 \
+1.
+\f0 \'d4\'da
+\f1 info.plist
+\f0 \'ce\'c4\'bc\'fe\'d6\'d0\'cc\'ed\'bc\'d3
+\f1 View controller-based status bar appearance
+\f0 \'a3\'ac\'c9\'e8\'d6\'c3\'ce\'aa
+\f1 NO\
+2.
+\f0 \'d4\'da\'b2\'a5\'b7\'c5\'bf\'d8\'d6\'c6\'c6\'f7\'d2\'b3\'c3\'e6\'b5\'bc\'c8\'eb
+\f1 Masonry
+\f0 \'a3\'ac\'cc\'ed\'bc\'d3AVFoundation.framework\'a3\'ac\'b5\'bc\'c8\'eb
+\f1 PlayerView.h,
+\f0 \'be\'df\'cc\'e5\'ca\'be\'c0\'fd\'b4\'fa\'c2\'eb\'c8\'e7\'cf\'c2\'a3\'ba
+\f1 \cf3 \
+\pard\tx890\pardeftab890\pardirnatural\partightenfactor0
+\cf3 \CocoaLigature0 #import "MainPlayView.h"\
+#import "PlayView.h"\
+#import "Masonry.h"\
+#define ScreenWidth [UIScreen mainScreen].bounds.size.width\
+#define ScreenHeight [UIScreen mainScreen].bounds.size.height\
+#define PlayerWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)\
+#define PlayerHeight (PlayerWidth * (9.0 / 16.0))\
+@interface MainPlayView ()\
+\
+@end\
+\
+@implementation MainPlayView\
+\
+- (void)viewDidLoad \{\
+    [super viewDidLoad];\
+    self.view.backgroundColor = [UIColor whiteColor];\
+    self.navigationController.navigationBarHidden = YES;\
+    NSString * filePath = @"http://baobab.wdjcdn.com/1458625865688ONE.mp4";\
+    \
+    PlayView *view = [[PlayView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 9*ScreenWidth/16) WithVideoStr:filePath];\
+    view.titleName = @"
+\f0 \'ce\'d2\'ca\'c7\'b1\'ea\'cc\'e2
+\f1 ";\
+    [self.view addSubview:view];\
+    [view mas_makeConstraints:^(MASConstraintMaker *make) \{\
+        make.left.offset(0);\
+        make.right.offset(0);\
+        make.top.offset(0);\
+        make.height.offset(PlayerHeight);\
+    \}];\
+    \
+    __weak typeof(self) weakSelf = self;\
+    view.goBackBlock = ^\{\
+        [weakSelf.navigationController popViewControllerAnimated:YES];\
+    \};\
+\}\
+}
